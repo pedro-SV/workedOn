@@ -1,0 +1,4 @@
+name: worked-on
+recipe: laravel
+config:
+  webroot: public
