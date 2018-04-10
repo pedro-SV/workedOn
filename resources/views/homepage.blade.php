@@ -12,7 +12,7 @@
         <h1>Worked On</h1>
         <ul>
             @foreach($tickets as $ticket)
-                <li>{{ $ticket->external_id }}</li>
+                <li>{{ $ticket->external_id }} : {{ $ticket->title }}</li>
             @endforeach
         </ul>
     </body>
