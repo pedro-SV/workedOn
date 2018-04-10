@@ -16,3 +16,5 @@
 //});
 
 Route::get('/', 'HomepageController@index');
+Route::get('/test', 'HomepageController@test');
+Route::get('/import', 'TicketController@import');
