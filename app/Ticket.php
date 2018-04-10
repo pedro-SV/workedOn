@@ -8,6 +8,10 @@ class Ticket extends Model
 {
     protected $guarded = [];
 
+    protected $casts = [
+        'external_created' => 'datetime',
+    ];
+
     //
     public function description()
     {
