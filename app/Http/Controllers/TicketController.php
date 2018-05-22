@@ -37,28 +37,26 @@ class TicketController extends Controller
 
         $project = $request->get('project');
         $status = $request->get('status');
-
-        // @TODO Import tickets dynamically
-        // - make project configurable
-        // - make status configurable
+        
         $walker->push(
             'project = '. $project . ' AND status = "'. $status . '"'
         );
+
+        $newTickets = 0;
 
         foreach ($walker as $issue) {
 
             /** @var Issue $issue */
 
-            //$isNotImported = is_null(
-            //    Ticket::where('external_id', $issue->getKey())
-            //        ->first());
-            //
-            //if ($isNotImported) {
-            //    $ticket = new Ticket();
-            //    $ticket->external_id = $issue->getKey();
-            //    $ticket->title = $issue->getSummary();
-            //    $ticket->save();
-            //}
+            //dd($issue);
+
+            $isNotImported = is_null(
+                Ticket::where('external_id', $issue->getKey())
+                    ->first());
+
+            if ($isNotImported) {
+                $newTickets++;
+            }
 
             $external_created = new Carbon($issue->getCreated());
 
@@ -67,8 +65,11 @@ class TicketController extends Controller
                 [
                     'title' => $issue->getSummary(),
                     'external_created' => $external_created,
+                    'external_status' => $issue->getStatus()['name'],
                 ]
             );
         }
+        
+        return redirect()->route('homepage')->with('message', 'You have imported ' . $newTickets . ' new tickets');
     }
 }

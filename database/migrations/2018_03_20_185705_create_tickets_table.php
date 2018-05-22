@@ -19,6 +19,7 @@ class CreateTicketsTable extends Migration
             $table->string('external_id')->unique();
             $table->string('title');
             $table->timestampTz('external_created')->useCurrent();
+            $table->string('external_status');
         });
     }
 

@@ -15,7 +15,9 @@ class HomepageController extends Controller
     //
     public function index()
     {
-        $tickets = Ticket::all();
+        $tickets = Ticket::all()
+            ->sortByDesc('external_created');
+        
         return view('homepage', compact('tickets'));
     }
 

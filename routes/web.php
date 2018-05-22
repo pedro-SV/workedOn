@@ -15,7 +15,8 @@
 //    return view('welcome');
 //});
 
-Route::get('/', 'HomepageController@index');
+Route::get('/', 'HomepageController@index')->name('homepage');
 Route::get('/test', 'HomepageController@test');
-Route::get('/import', 'TicketController@importForm');
+Route::get('/import', 'TicketController@importForm')->name('import.form');
 Route::post('/import', 'TicketController@importRun')->name('import.run');
+Route::get('/report', 'ReportController@reportForm')->name('report.form');
