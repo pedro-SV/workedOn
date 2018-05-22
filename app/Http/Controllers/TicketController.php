@@ -43,12 +43,11 @@ class TicketController extends Controller
         );
 
         $newTickets = 0;
+        $updatedTickets = 0;
 
         foreach ($walker as $issue) {
 
             /** @var Issue $issue */
-
-            //dd($issue);
 
             $isNotImported = is_null(
                 Ticket::where('external_id', $issue->getKey())
@@ -57,19 +56,25 @@ class TicketController extends Controller
             if ($isNotImported) {
                 $newTickets++;
             }
+            else {
+                $updatedTickets++;
+            }
 
             $external_created = new Carbon($issue->getCreated());
+
+            $external_updated = new Carbon($issue->getUpdated());
 
             Ticket::updateOrCreate(
                 ['external_id' => $issue->getKey()],
                 [
                     'title' => $issue->getSummary(),
                     'external_created' => $external_created,
+                    'external_updated' => $external_updated,
                     'external_status' => $issue->getStatus()['name'],
                 ]
             );
         }
         
-        return redirect()->route('homepage')->with('message', 'You have imported ' . $newTickets . ' new tickets');
+        return redirect()->route('homepage')->with('message', 'You have imported ' . $newTickets . ' new tickets and updated ' . $updatedTickets . ' tickets.');
     }
 }

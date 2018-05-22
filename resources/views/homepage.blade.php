@@ -14,6 +14,7 @@
             <ul>
                 <li>
                     <a href="{{ route('import.form') }}">Import tickets</a>
+                    <a href="{{ route('report.form') }}">Report</a>
                 </li>
             </ul>
         </nav>
@@ -24,7 +25,7 @@
 
         <ul>
             @foreach($tickets as $ticket)
-                <li>{{ $ticket->external_id }} : {{ $ticket->title }} | {{ $ticket->external_created }} | {{ $ticket->external_status }}</li>
+                <li>{{ $ticket->external_id }} : {{ $ticket->title }} | {{ $ticket->external_created }} | {{ $ticket->external_status }} | {{ $ticket->external_updated }}</li>
             @endforeach
         </ul>
     </body>
